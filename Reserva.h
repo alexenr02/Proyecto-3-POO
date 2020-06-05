@@ -9,6 +9,7 @@ class Reserva
         int idMaterial;
         int idCliente;
         Fecha fechaReservacion;
+        Fecha f9;
 
     public:
         Reserva();
@@ -22,7 +23,7 @@ class Reserva
         void setMaterial(int _idMaterial){idMaterial=_idMaterial;};
         void setCliente(int _idCliente){idCliente= _idCliente;};
         void setFecha(Fecha _fechaReservacion){fechaReservacion=_fechaReservacion;};
-        Fecha calculaFechaFinReserva(int _cantDias){return fechaReservacion+_cantDias;};
+        Fecha calculaFechaFinReserva(int _cantDias){return f9=fechaReservacion+_cantDias;};
 
         void muestraReservacion();
 

@@ -36,7 +36,7 @@ Disco::Disco(int _idMaterial,string _titulo,int _duracion,string _Genero):Materi
 
 void Disco::muestraDatos()
 {
-    cout<< "--------Datos del Libro---------\n\n";
+    cout<< "\n--------Datos del Disco---------\n\n";
     cout<< "ID: "<<Material::idMaterial<<endl;
     cout<< "Título: "<<Material::titulo<<endl;
     cout<< "Duración: " << duracion <<endl;

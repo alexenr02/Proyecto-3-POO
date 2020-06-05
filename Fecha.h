@@ -275,25 +275,34 @@ Fecha Fecha::operator-(int dias)
 bool Fecha::operator>=(Fecha F1)
 {
     int total1= aa*12*365 + mm*30+dd;
-    int total2= F1.aa*12*365 + F1.mm*30+dd;
+    int total2= F1.aa*12*365 + F1.mm*30+F1.dd;
     if(total1>=total2)
-        return true;
+        {
+            //cout << total1 << endl;
+            //cout << total2 << endl;
+            return true;
+        }
     else
         return false;
 }
 bool Fecha::operator<=(Fecha F1)
 {
     int total1= aa*12*365 + mm*30+dd;
-    int total2= F1.aa*12*365 + F1.mm*30+dd;
+    int total2= F1.aa*12*365 + F1.mm*30+F1.dd;
     if(total1<=total2)
+    {
+        //cout << total1 << endl;
+        //cout << total2 << endl;
         return true;
+    }
+
     else
         return false;
 }
 bool Fecha::operator>(Fecha F1)
 {
     int total1= aa*12*365 + mm*30+dd;
-    int total2= F1.aa*12*365 + F1.mm*30+dd;
+    int total2= F1.aa*12*365 + F1.mm*30+F1.dd;
     if(total1>total2)
         return true;
     else
@@ -302,7 +311,7 @@ bool Fecha::operator>(Fecha F1)
 bool Fecha::operator<(Fecha F1)
 {
     int total1= aa*12*365 + mm*30+dd;
-    int total2= F1.aa*12*365 + F1.mm*30+dd;
+    int total2= F1.aa*12*365 + F1.mm*30+F1.dd;
     if(total1<total2)
         return true;
     else

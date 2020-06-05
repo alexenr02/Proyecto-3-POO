@@ -35,6 +35,8 @@ int main()
     //mostrarMenu();
     //Fecha f1,f2;
 
+
+
     setlocale(LC_CTYPE,"Spanish");
     ifstream archivoMaterial;
     archivoMaterial.open("Material.txt");
@@ -107,8 +109,8 @@ int main()
                 break;
             case 'B':
             {
-                int aux,aux2,aux3,cantDias;
-                Fecha fechafinal;
+                int aux=0,aux2=0,aux3=0,cantDias2=0;
+                Fecha fechafinal2;
                 for(int z=0;z<y;z++)
                 {
                     cout << "Fecha de reservación: \t\t\t";
@@ -123,11 +125,12 @@ int main()
                         if(aux==aux2)
                         {
                            aux3=a; //aux3 guarda el id para reconocer el titulo del articulo
-                           cantDias=MaterialArray[a]->cantidadDiasPrestamo();
+                           cantDias2=MaterialArray[a]->cantidadDiasPrestamo();
                         }
                     }
-                    fechafinal=ReservacionesArray[z].calculaFechaFinReserva(cantDias);
-                    cout <<  fechafinal;
+
+                    fechafinal2=ReservacionesArray[z].getFecha()+cantDias2;
+                    cout <<  fechafinal2;
 
                     cout << "Titulo: ";
                     cout <<MaterialArray[aux3]->getTitulo();
@@ -141,75 +144,101 @@ int main()
             }
             case 'C':
              {
-                int aux,aux2,aux3,cantDias;
-                Fecha fechafinal;
-                for(int z=0;z<y;z++)
+                int DiasPrestamo;
+                int queMaterialEs;
+                char answer1;
+
+                bool existe;
+                int idMat;
+                existe=false;
+                answer1='N';
+                do{
+                    cout << "Ingresa el ID del material que quieras verificar: ";
+                    cin >> idMat;
+                    cout << endl;
+                for (int a=0; a<x; a++)
                 {
-                    cout << "Reservación: " << z+1 << endl;
-                    aux=ReservacionesArray[z].getMaterial(); //id del material
-
-                    for(int a=0; a<x;a++)
-                    {
-                        aux2=MaterialArray[a]->getIdMaterial();
-
-                        if(aux==aux2)
+                    if(idMat==MaterialArray[a]->getIdMaterial())
                         {
-                           aux3=a; //aux3 guarda el id para reconocer el titulo del articulo
-                           cantDias=MaterialArray[a]->cantidadDiasPrestamo();
+                            existe=true;
+                            queMaterialEs=a; //en el arreglo de materiales
+                        }
+                }
+                    if(existe==false)
+                        {
+                        cout << "El id del material no existe, ¿Deseas intentar de nuevo?(Y/N) " ;
+                        cin >> answer1;
+                        cout << endl;
+                        answer1=toupper(answer1);
+                        if(answer1!='Y')
+                                {
+                                    goto continuar3;
+                                }
+                        }
+                }while (existe==false && answer1=='Y');
+
+                existe=false;
+                for(int z=0; z<y;z++) //z for Reservaciones array
+                    {
+                        if(MaterialArray[queMaterialEs]->getIdMaterial()==ReservacionesArray[z].getMaterial())
+                        {
+                            existe=true;
+                            DiasPrestamo=MaterialArray[queMaterialEs]->cantidadDiasPrestamo();
+                            cout <<"Título: ";
+                            cout <<MaterialArray[queMaterialEs]->getTitulo();
+                            cout << endl;
+                            cout <<"Fecha de Reservación: ";
+                            cout <<ReservacionesArray[z].getFecha();
+                            cout <<"Fecha de devolución: ";
+                            cout <<ReservacionesArray[z].getFecha()+DiasPrestamo;
+                            cout << endl;
+
                         }
                     }
-                    cout << "Titulo: ";
-                    cout <<MaterialArray[aux3]->getTitulo();
-                    cout << endl;
-                    cout << "Fecha de reservación: \t\t\t";
-                    cout << ReservacionesArray[z].getFecha();
-                    //cout << endl;
-                    fechafinal=ReservacionesArray[z].calculaFechaFinReserva(cantDias);
-                    cout << "Fecha en que termina la reservación: \t";
-                    cout <<  fechafinal;
-                    cout << endl;
-                }
-
-                break;
+                    if(existe==false)
+                    cout << "Lo siento, no hay reservaciones de ese artículo. \n" << endl;
+continuar3:         break;
             }
             case 'D':
             {
+                bool reserved;
+                bool comprobar=false;
                 int aux,aux2,aux3,cantDias;
-                Fecha fechafinal,f5,fechainicio;
+                Fecha fechafinal,f6,fechainicio;
                 cout << "Ingresa una fecha que quieras verificar: " << endl;
-                cin >>f5;
-                for(int z=0;z<y;z++)
-                {
-                    aux=ReservacionesArray[z].getMaterial(); //id del material
-                    for(int a=0; a<x;a++)
-                    {
-                        aux2=MaterialArray[a]->getIdMaterial();
+                cin >>f6;
 
-                        if(aux==aux2)
-                        {
-                           aux3=a; //aux3 guarda el id para reconocer el titulo del articulo
-                           cantDias=MaterialArray[a]->cantidadDiasPrestamo();
-                        }
-                    }
-                    //cout << endl;
-                    fechainicio= ReservacionesArray[z].getFecha();
-                    fechafinal=ReservacionesArray[z].calculaFechaFinReserva(cantDias);
-                    if(f5>=fechainicio&&f5<=fechafinal)
-                    {
-                        cout << "\nFecha de reservación: \t\t\t";
-                        cout << fechainicio;
-                        cout << "Fecha en que termina la reservación: \t";
-                        cout <<  fechafinal;
-                        cout << "Titulo: ";
-                        cout <<MaterialArray[aux3]->getTitulo();
-                        cout << "\nId de cliente: ";
-                        cout << ReservacionesArray[z].getCliente();
-                        cout << endl;
-                    }
-                    else
-                        cout <<"No hay reservaciones en esa fecha, intenta con otra. \n";
+                for(int a=0; a<x;a++)// a for Material array
+                {
+                    for(int z=0; z<y;z++) //z for Reservaciones array
+                     {
+                         if(MaterialArray[a]->getIdMaterial()==ReservacionesArray[z].getMaterial())
+                         {
+                             aux3=z;
+                             cantDias=MaterialArray[a]->cantidadDiasPrestamo();
+                             fechainicio= ReservacionesArray[z].getFecha();
+                             fechafinal= ReservacionesArray[z].getFecha()+cantDias;
+                             if((f6>=fechainicio) && (f6<=fechafinal))
+                             {
+                                    comprobar=true;
+                                    cout << "Título: ";
+                                    cout << MaterialArray[a]->getTitulo()<<endl;
+                                    cout << "Id del cliente: ";
+                                    cout << ReservacionesArray[z].getCliente() << endl;
+                                    cout << "Fecha de inicio de reservación: ";
+                                    cout << fechainicio ;
+                                    cout << "Fecha de devolución: ";
+                                    cout << fechafinal;
+                                    cout << endl;
+
+                             }
+                             //fechafinal.setFecha(1,1,1);
+                         }
+                     }
 
                 }
+                if(comprobar==false)
+                    cout <<"No hay reservaciones en esa fecha, intenta con otra. \n";
 
                 break;
             }

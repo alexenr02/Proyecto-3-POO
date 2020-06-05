@@ -36,7 +36,7 @@ Software::Software(int _idMaterial,string _titulo,int _Version,string _SO):Mater
 
 void Software::muestraDatos()
 {
-    cout<< "--------Datos del Libro---------\n\n";
+    cout<< "\n--------Datos del Software---------\n\n";
     cout<< "ID: "<<Material::idMaterial<<endl;
     cout<< "Titulo: "<<Material::titulo<<endl;
     cout<< "Versión: " << Version <<endl;

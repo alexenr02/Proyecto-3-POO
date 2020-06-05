@@ -36,7 +36,7 @@ Libro::Libro(int _idMaterial,string _titulo,int _numPag,string _Autor):Material(
 
 void Libro::muestraDatos()
 {
-    cout<< "--------Datos del Libro---------\n\n";
+    cout<< "\n--------Datos del Libro---------\n\n";
     cout<< "ID: "<<Material::idMaterial<<endl;
     cout<< "Titulo: "<<Material::titulo<<endl;
     cout<< "Número de Páginas: " << numPag<<endl;
