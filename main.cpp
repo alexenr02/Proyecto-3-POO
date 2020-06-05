@@ -337,7 +337,21 @@ int main()
                 }
 continuar:  break;
             case 'F':
-
+                {
+                Fecha fechanueva;
+                ofstream archivoReservasGuardar;
+                archivoReservasGuardar.open("Reserva.txt");
+                for(int v=0;v<y;v++)
+                {
+                    fechanueva=ReservacionesArray[v].getFecha();
+                    archivoReservasGuardar << fechanueva.getDia()<< " " << fechanueva.getMes()<< " " << fechanueva.getAnio()<< " " << ReservacionesArray[v].getMaterial()<< " " << ReservacionesArray[v].getCliente();
+                    archivoReservasGuardar << endl;
+                }
+                archivoReservasGuardar.close();
+                cout << "Gracias, hasta luego" << endl;
+                return 0;
+                break;
+                }
             default:
                 cout<< "\nNo es una opción correcta, ingresa A,B,C,D,E o F según desees.\n" << endl;
 
